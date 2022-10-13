@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container } from "@mui/material";
 import Searcher from "./components/Searcher";
-import { useEffect } from "react";
 import { getGithubUser } from './services/users'
 
 const App = () => {
 
-  const [inputUser, setInputUser] = useState('octocat');
+  const [inputUser, setInputUser] = useState('octocat'); // Definimos que el inputUser por defecto va a ser "octocat".
   const [userStater, userState] = useState('inputUser');
+
   const gettingUser = async (user) => {
     const userResponse = await getGithubUser(user);
     console.log(userResponse);
@@ -18,6 +18,7 @@ const App = () => {
     gettingUser(inputUser)
   })
   
+  // Definimos los estilos del Contenedor Principal
   const estilosContainer =  {
     background: "whitesmoke",
     width: "80vw",
@@ -29,8 +30,13 @@ const App = () => {
     alignItems: "center",
 }
   return(
-    <Container sx={estilosContainer} >
-    <Searcher inputUser={inputUser} setInputUser={setInputUser} />
+    <Container 
+    // Con la propiedad "sx" formateamos los estilos del Contenedor con la const estilosContainer
+    sx={estilosContainer} >
+    <Searcher 
+    inputUser={inputUser} // Por defecto el inputUser va a ser "octocat" definido más arriba en la destructuracion.
+    setInputUser={setInputUser}// Actualiza el estado de inputUser definido más arriba en la destructuracion.
+    />
     </Container>
   )
 };
